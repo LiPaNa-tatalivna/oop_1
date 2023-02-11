@@ -1,4 +1,4 @@
- #include <iostream>
+#include <iostream>
 #include <string>
 #include <fstream>
 #include <stdlib.h>
@@ -24,6 +24,12 @@ public:
         this -> nomer_kvartire = nomer_kvartire;
         // cout << gorod << gorod;
     }
+    // Adress(string gorod, string ylica, int nomer_doma, int nomer_kvartire){
+    //     this -> gorod = gorod;
+    //     this -> ylica = ylica;
+    //     this -> nomer_doma = nomer_doma;
+    //     this -> nomer_kvartire = nomer_kvartire;
+    // }
     string get_gorod() {return gorod;} // геттер
     string get_ylica() {return ylica;}
     int get_nomer_doma() {return nomer_doma;}
@@ -46,26 +52,23 @@ int main()
     
     
     for (int i = 0; i < n; i++){
-        fin >> s;
-        gorod = s;
-        fin >> s;
-        ylica = s;
-        fin >> s;
-        nomer_doma = atoi(s.c_str());
-        fin >> s;
-        nomer_kvartire = atoi(s.c_str());
-        (adress + i) -> new_Adress(gorod, ylica, nomer_doma, nomer_kvartire);
+        fin >> gorod;
+        fin >> ylica;
+        fin >> nomer_doma;
+        fin >> nomer_kvartire;
+        adress[i].new_Adress(gorod, ylica, nomer_doma, nomer_kvartire);
+        // adress[i](gorod, ylica, nomer_doma, nomer_kvartire);
     }
     
     sort(adress, n);
     
     fout << n << endl;
     for (int i = 0 ; i < n; i++){
-        fout << (adress + i) -> get_gorod() << ", ";
-        fout << (adress + i) -> get_ylica() << ", ";
-        fout << (adress + i) -> get_nomer_doma() << ", ";
-        fout << (adress + i) -> get_nomer_kvartire() << endl;
-        cout << (adress + i) -> get_gorod() << ", ";
+        fout << adress[i].get_gorod() << ", ";
+        fout << adress[i].get_ylica() << ", ";
+        fout << adress[i].get_nomer_doma() << ", ";
+        fout << adress[i].get_nomer_kvartire() << endl;
+        cout << adress[i].get_gorod() << ", ";
         
     }
     
@@ -83,17 +86,13 @@ void sort(Adress* adress, int size){
     
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size - 1; j++) {
-            if ((adress + j) -> get_gorod() > (adress + j + 1) -> get_gorod()){
-                svobodnay = *(adress +j); 
-                *(adress + j) = *(adress + j + 1); // меняем местами
-                *(adress + j + 1) = svobodnay; 
+            if (adress[j].get_gorod() > adress[j + 1].get_gorod()){
+                svobodnay = adress[j]; 
+                adress[j] = adress[j + 1]; // меняем местами
+                adress[j + 1] = svobodnay; 
             }
         }
         // cout << (adress + i) -> get_gorod() << ", ";
     }
     
 }
-
-
-
-
